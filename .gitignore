@@ -1,0 +1,8 @@
+__pycache__
+.pylint.d
+mat2npy_compare
+linear2polargrid.py
+data/
+*.npy
+*.mat
+
