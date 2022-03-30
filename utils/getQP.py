@@ -46,27 +46,27 @@ from utils.getMirroredStack import getMirroredStack
 from utils.map3D import map3D
 
 
-def getQP(stack=None,s=None,mask=None):
+def getQP(stack=None,struct=None,mask=None):
 
     # mirror the data and compute adequate Fourier space grid
-    kx,kz,stackM = getMirroredStack(stack,s)
+    kx,kz,stackM = getMirroredStack(stack,struct)
     
     if mask is None: # if no mask is provided
         # compute usefull stuff
-        th=math.asin(s.optics_NA / s.optics_n)
-        th_ill=math.asin(s.optics_NA_ill / s.optics_n)
-        k0max = dot(dot(s.optics_n,2),pi) / (s.optics_wv - s.optics_dlambda / 2) 
-        k0min = dot(dot(s.optics_n,2),pi) / (s.optics_wv + s.optics_dlambda / 2) 
+        th=math.asin(struct.optics_NA / struct.optics_n)
+        th_ill=math.asin(struct.optics_NA_ill / struct.optics_n)
+        k0max = dot(dot(struct.optics_n,2),pi) / (struct.optics_wv - struct.optics_dlambda / 2) 
+        k0min = dot(dot(struct.optics_n,2),pi) / (struct.optics_wv + struct.optics_dlambda / 2) 
         
         # compute Fourier space grid and the phase mask
         Kx,Kz=np.meshgrid(kx,kz)
-        if s.optics_kzT is None:
+        if struct.optics_kzT is None:
             mask2D = Kz >= np.dot(k0max,(1 - cos(th_ill)))
         else:
-            mask2D = Kz >= s.optics_kzT
+            mask2D = Kz >= struct.optics_kzT
 
 
-        if s.proc_applyFourierMask:  #  => compute the CTF mask for extra denoising
+        if struct.proc_applyFourierMask:  #  => compute the CTF mask for extra denoising
             # CTF theory
             maskCTF = logical_and(logical_and(logical_and(
                 ((Kx - dot(k0max,sin(th_ill))) ** 2 + (Kz - dot(k0max,cos(th_ill))) ** 2) <= k0max ** 2, \
@@ -91,7 +91,7 @@ def getQP(stack=None,s=None,mask=None):
     print("Inverse FFT..")
     csd=fft.ifftshift(fft.ifftn(fft.ifftshift(Gamma)))
     csd = csd[:stack.shape[0], :stack.shape[1], :stack.shape[2]]   # remove the mirrored input    
-    QP = angle(csd + np.mean(np.ravel(stack)) / s.optics_alpha)
+    QP = angle(csd + np.mean(np.ravel(stack)) / struct.optics_alpha)
 
     return QP,mask
     
