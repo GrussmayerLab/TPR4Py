@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 plotStack(data,figID)
 -------------------------
@@ -39,10 +38,9 @@ Outputs:
 """
 
 import napari
-import numpy as np
 
 def plotStack(data=None, figID=None, *args,**kwargs):
-    napari.view_image(data, axis_labels=["x","y","z"]) 
+    napari.view_image(data, axis_labels=["x","y","z"], name=str("QP_" + figID)) 
     
     
     
