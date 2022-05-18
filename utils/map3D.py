@@ -37,26 +37,34 @@ import numpy as np
 
 def map3D(in_=None):
     Nz, Nx =in_.shape
-    out=np.zeros((Nx,Nx,Nz))
-    x, y = np.meshgrid(np.linspace(0,Nx,Nx), np.linspace(0,Nx,Nx))
-    c_lat = Nx/2
+    temp_x = np.linspace(-1,1,Nx)
+    temp_z = np.linspace(-1,1,Nz)
+    
+    x, y = np.meshgrid(temp_x, temp_x)
+    r=np.sqrt(x**2+y**2)
+    r[r>np.max(temp_x)] = np.max(temp_x)
+    
+    
+    #c_lat = Nx/2
     # create grid of float radial pixel distances to center coordinate of Nx,Nx grid
-    polargrid = np.sqrt((x-c_lat)**2+(y-c_lat)**2) # np.round for int distances 
+    #polargrid = np.sqrt((x-c_lat)**2+(y-c_lat)**2) # np.round for int distances 
+    
+    mapr = (r-np.min(temp_x))/(np.max(temp_x)-np.min(temp_x))*(len(temp_x)-2) #-2
+    mapf = np.floor(mapr)+1
+    mapc = np.ceil(mapr)+1
+    p = mapc-mapr-1
+    
+    out=np.zeros((Nx,Nx,Nz))
 
     for kk in range(Nz):
         CTF1D= in_[kk,:]  # < 0      # extract the 1D psf = 1xNx boolean        
-        CTF2D = np.zeros((Nx,Nx))    # initialise mask plane 
+        tempf = np.isin(mapf, np.add(1,np.where(CTF1D == 1)[0]))
+        tempc = np.isin(mapc, np.add(1,np.where(CTF1D == 1)[0]))
+        
+        # local linear interpolation 
+        temp = p*tempf + (1-p)*tempc;
 
-        # create circles from radii & superimpose to 2d mask from 1d psf
-        if any(CTF1D):
-            radii = np.unique(np.abs(np.subtract(np.nonzero(CTF1D)[0],c_lat)))
-            for r in radii[1:]: # leave out first radius (improves superposition with .mat mapping, not sure why though)
-                mask_coords = np.logical_and(polargrid <= r+1 , polargrid >= r-1)   # mask  
-                dist_pxl = np.subtract(np.ones((Nx,Nx)),np.abs((polargrid*mask_coords) - np.round(r)))
-                mask = dist_pxl*mask_coords
-                CTF2D = np.add(CTF2D, mask) 
-
-        out[:,:,kk]=CTF2D
+        out[:,:,kk]=temp
 
     return out
     

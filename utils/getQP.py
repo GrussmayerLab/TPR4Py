@@ -82,7 +82,7 @@ def getQP(stack=None,struct=None,mask=None):
         mask=map3D(mask2D)
         elapsed = time.time() - t
         #np.save("data\mask3D.npy", mask)
-        print("Mapping mask finished, time needed: [%s]" % (elapsed))
+        print("Mapping mask finished, time needed: %s" % (elapsed))
 
     # Cross-Spectral Density calculation
     print("Shifting FFT..")

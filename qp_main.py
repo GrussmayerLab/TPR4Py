@@ -79,9 +79,9 @@ if PLOT_FLAG:
 
 #%% mat2py comparisons (mat files saved externally)
 
-from matnpy_compare import compare
-py, mat, delta = compare("QP", "QP", True, False)
-py, mat, delta = compare("mask3D", "mask", True, False)
+#from matnpy_compare import compare
+#py, mat, delta = compare("QP", "QP", True, False)
+#py, mat, delta = compare("mask3D", "mask", True, False)
 
 
 
