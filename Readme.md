@@ -24,13 +24,13 @@ pip install -r requirements.txt
 This basically sets up the necessary scikit-image and numpy modules. 
 Visualisation is not possible with these modules. 
 
-### Visualisation inlcuded 
-To display the 3D phase map, install the requirements via 
+### Visualisation included 
+To display the 3D phase map, install napari into your local virtual environment via 
 ```sh
-pip install -r requirements_detailed.txt
+python -m pip install "napari[all]"
 ```sh
 This initialises napari version 0.4.12 that enables a powerful n-dimensional image processing and visualisation toolbox.
-
+Please refer to the napari github for further instructions: https://napari.org/index.html 
 
 ## Requirements
  * sci-kit image == 0.19.2
