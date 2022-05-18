@@ -11,18 +11,24 @@ The main script contains a basic pipeline for QP retrieval from brightfield stac
 
 ## Installation
 Via command line:
-'''git clone git@github.com:GrussmayerLab/TomographicPhaseRetrieval.git'''
+```sh 
+git clone git@github.com:GrussmayerLab/TomographicPhaseRetrieval.git
+```
 clones into the repository to and gives access to the source code on your local machine
 
 Ideally a separate environment is set up and dependencies installed. 
 ### Processing only 
-''' pip install -r requirements.txt '''
+```sh
+pip install -r requirements.txt 
+```
 This basically sets up the necessary scikit-image and numpy modules. 
 Visualisation is not possible with these modules. 
 
 ### Visualisation inlcuded 
 To display the 3D phase map, install the requirements via 
-''' pip install -r requirements_detailed.txt '''
+```sh
+pip install -r requirements_detailed.txt
+```sh
 This initialises napari version 0.4.12 that enables a powerful n-dimensional image processing and visualisation toolbox.
 
 

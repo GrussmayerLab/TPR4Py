@@ -71,7 +71,7 @@ def loadData(path=None):
             print('File {:s} failed due to {:s}'.format(file, error))
     
     image_batch = image_batch.squeeze()      
-    print("Finished reading... /nStack size: {}".format(image_batch.shape))
+    print("Finished reading... \nStack size: {}".format(image_batch.shape))
     return image_batch, filenames
             
         

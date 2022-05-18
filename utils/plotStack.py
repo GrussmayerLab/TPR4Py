@@ -40,8 +40,11 @@ Outputs:
 import napari
 
 def plotStack(data=None, figID=None, *args,**kwargs):
-    napari.view_image(data, axis_labels=["x","y","z"], name=str("QP_" + figID)) 
     
+    viewer = napari.Viewer()
+    viewer.add_image(data, name=str("QP_" + figID))
+    #napari.view_image(data, axis_labels=["x","y","z"], name=str("QP_" + figID)) 
+    napari.run()
     
     
     

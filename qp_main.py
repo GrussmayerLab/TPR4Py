@@ -50,7 +50,7 @@ Nx,Ny,Nz = stack.shape
 #%%3D stack preprocessing
 if Nz == 8:                                 # i.e. multiplane data : remove the coregistration mask
     stack=cropCoregMask(stack)
-    TEMP_NPIX = 100                         # variable was undefined in mat file, set accordingly         
+    TEMP_NPIX = 100                         #  variable was undefined in mat file, set accordingly         
     stack=cropXY(stack,TEMP_NPIX - 4)       #  extra safety crop 
 else:
     stack=cropXY(stack)
@@ -69,7 +69,8 @@ if stack.shape[0] == 8:              # i.e. MultiPlane data
 else:
     s.optics_dz = 0.2               # typical sampling for fixed cells
 #%% compute the phase
-QP,_ = getQP(stack,s)
+QP,mask = getQP(stack,s)
+
 #%% napari 3D stack plotting
 if PLOT_FLAG:
     figID = os.path.basename(fname[0])
@@ -78,9 +79,9 @@ if PLOT_FLAG:
 
 #%% mat2py comparisons (mat files saved externally)
 
-#from matnpy_compare import compare
-#py, mat, delta = compare("QP", "QP", True, False)
-#py, mat, delta = compare("mask3D", "mask", True, False)
+from matnpy_compare import compare
+py, mat, delta = compare("QP", "QP", True, False)
+py, mat, delta = compare("mask3D", "mask", True, False)
 
 
 
