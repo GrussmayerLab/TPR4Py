@@ -16,7 +16,12 @@ git clone git@github.com:GrussmayerLab/TomographicPhaseRetrieval.git
 ```
 clones into the repository to and gives access to the source code on your local machine
 
-Ideally a separate environment is set up and dependencies installed. 
+Ideally a separate environment is set up and dependencies installed.
+This can be done by via the environment.yml file: 
+```sh
+conda env create -f environment.yml 
+```
+
 ### Processing only 
 ```sh
 pip install -r requirements.txt 
@@ -28,9 +33,10 @@ Visualisation is not possible with these modules.
 To display the 3D phase map, install napari into your local virtual environment via 
 ```sh
 python -m pip install "napari[all]"
-```sh
+```
 This initialises napari version 0.4.12 that enables a powerful n-dimensional image processing and visualisation toolbox.
 Please refer to the napari github for further instructions: https://napari.org/index.html 
+If you set up a virtual environment via the environment.yml file, this step might well be unnecessary. 
 
 ## Requirements
  * sci-kit image == 0.19.2
@@ -39,13 +45,13 @@ Please refer to the napari github for further instructions: https://napari.org/i
  
 ## Usage
  
-* qp_main.py is the main script that can be run in the IDE of choice. It accesses the utility scripts under /utilities. 
+* qp_main.py is the main script that can be run in the IDE of choice. It accesses the utility scripts under /utils. 
 
 # input
 A .tiff or .png stack containing at least two z-positions of the investigated object.
 
 # returns 'QP'
-A 3D stack with the same dimensions as the input image stack, wherein each pixel represent the pathlength differences. 
+A 3D stack with the same dimensions as the input image stack, wherein each pixel represents the rad-pathlength differences. 
 
 ## Contributing
 A detailled description of the theory supporting this program can be found in : "Descloux, A., et al. "Combined multi-plane phase retrieval and super-resolution optical fluctuation imaging for 4D cell microscopy." Nature Photonics 12.3 (2018): 165.

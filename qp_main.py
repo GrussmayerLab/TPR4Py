@@ -75,7 +75,7 @@ QP,mask = getQP(stack,s)
 if PLOT_FLAG:
     figID = os.path.basename(fname[0])
     plotStack(QP, figID)
-    np.save("data/QP.npy", QP)
+    #np.save("data/QP.npy", QP)
 
 #%% mat2py comparisons (mat files saved externally)
 
