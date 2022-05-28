@@ -48,7 +48,7 @@ The functionality has been tested on following versions.
 Compatibility with older versions is not ensured but should be be possible.  
  * sci-kit image == 0.19.2
  * numpy == 1.12.5
- (* napari == 0.4.12 -> only necessary when you want to view the 3D phase map in the viewer)
+ * (napari == 0.4.12 -> only necessary when you want to view the 3D phase map in the viewer)
  
 ## Usage
  
