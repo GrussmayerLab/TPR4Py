@@ -2,6 +2,7 @@
 
 TomPhaseRetPy is a tool to recover quantitative phase differences from a 3D stack of bright field images.
 It is based on the Matlab script from https://c4science.ch/source/TomPhaseRet/ further described in: 
+
 Descloux, A., Grußmayer, K.S., Bostan, E. et al. Combined multi-plane phase retrieval and super-resolution optical fluctuation imaging for 4D cell microscopy. 
 Nature Photon 12, 165–172 (2018).
 https://doi.org/10.1038/s41566-018-0109-4
