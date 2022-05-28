@@ -19,7 +19,7 @@ Via command line:
 ```sh 
 git clone git@github.com:GrussmayerLab/TomographicPhaseRetrieval.git
 ```
-clones into the repository to and gives access to the source code on your local machine
+clones into the repository and gives access to the source code on your local machine
 
 Ideally a separate environment is set up and dependencies installed.
 This can be done by via the environment.yml file: 
@@ -44,9 +44,11 @@ Please refer to the napari github for further instructions: https://napari.org/i
 If you set up a virtual environment via the environment.yml file, this step might well be unnecessary. 
 
 ## Requirements
+The functionality has been tested on following versions. 
+Compatibility with older versions is not ensured but should be be possible.  
  * sci-kit image == 0.19.2
  * numpy == 1.12.5
- (* napari == 0.4.12 -> only necessary when you want to view the 3D phase map)
+ (* napari == 0.4.12 -> only necessary when you want to view the 3D phase map in the viewer)
  
 ## Usage
  
