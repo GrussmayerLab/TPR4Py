@@ -1,8 +1,12 @@
 # TomographicPhaseRetrieval - TomPhaseRetPy
 
 TomPhaseRetPy is a tool to recover quantitative phase differences from a 3D stack of bright field images.
-It leans on the Matlab script from "insert citation Descloux et al. 2019"
-The main script contains a basic pipeline for QP retrieval from brightfield stacks
+It is based on the Matlab script from https://c4science.ch/source/TomPhaseRet/ further described in: 
+Descloux, A., Grußmayer, K.S., Bostan, E. et al. Combined multi-plane phase retrieval and super-resolution optical fluctuation imaging for 4D cell microscopy. 
+Nature Photon 12, 165–172 (2018).
+https://doi.org/10.1038/s41566-018-0109-4
+
+The main script contains a basic pipeline for quantitative phase retrieval from brightfield stacks
 * 3D image stack loading
 * 3D stack preprocessing
 * processing parameters definition
@@ -27,7 +31,7 @@ conda env create -f environment.yml
 pip install -r requirements.txt 
 ```
 This basically sets up the necessary scikit-image and numpy modules. 
-Visualisation is not possible with these modules. 
+Visualisation with napari is not possible with these modules. 
 
 ### Visualisation included 
 To display the 3D phase map, install napari into your local virtual environment via 
