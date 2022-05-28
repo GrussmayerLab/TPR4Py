@@ -1,4 +1,7 @@
-# TomographicPhaseRetrieval - TomPhaseRetPy
+# Disclaimer
+This repository is still work in progress.  
+
+# TomographicPhaseRetrieval for Python - TPR4Py
 
 TomPhaseRetPy is a tool to recover quantitative phase differences from a 3D stack of bright field images.
 It is based on the Matlab script from https://c4science.ch/source/TomPhaseRet/ further described in: 
