@@ -38,7 +38,7 @@ A detailled description of the theory supporting this program can be found in :
 import numpy as np
 from copy import copy 
     
-def cropXY(input_=None,N=None):
+def cropXY_old(input_=None,N=None):
     print("Cropping..")
     Nx,Ny,_=input_.shape
     if N is None:
@@ -60,6 +60,42 @@ def cropXY(input_=None,N=None):
     return out
     
 
+    
+def cropXY(input_=None,N=None):
+    print("Cropping..")
+    
+    size = input_.shape
+    if len(size) == 3:
+        D_FLAG = True
+        Nx,Ny,Nz =input_.shape
+    elif len(size) == 4:
+        D_FLAG = False
+        Nx,Ny,Nz,Nt =input_.shape
+        
+    if N is None:
+        N=max(Nx,Ny)+1
+        
+    if N > max(Nx,Ny): # invalid/ missing input N => square the stack
+        if Nx != Ny:
+            N=min(Nx,Ny)
+            ox=int(np.floor((Nx - N) / 2))
+            oy=int(np.floor((Ny - N) / 2))
+            if D_FLAG:
+                out=input_[ox:ox+N,oy:oy+N,:]      # beware matlab indexing
+            else: 
+                out=input_[ox:ox+N,oy:oy+N,:, :] 
+        else:
+            out=copy(input_)
+    else:
+        ox=int(np.floor((Nx - N) / 2))
+        oy=int(np.floor((Ny - N) / 2))
+        if D_FLAG:
+            out=input_[ox:ox+N, oy:oy+N,:]
+        else: 
+            out=input_[ox:ox+N, oy:oy+N,:, :]
+    print("Cropping finished")
+    return out
+    
 #if __name__ == '__main__':
 #    pass
     
