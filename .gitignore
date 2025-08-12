@@ -5,4 +5,4 @@ linear2polargrid.py
 data/
 *.npy
 *.mat
-
+.ipynb_checkpoints/

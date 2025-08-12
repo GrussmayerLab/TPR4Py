@@ -35,7 +35,7 @@ A detailled description of the theory supporting this program can be found in :
 """
 import numpy as np
 import os
-from utils.loadData import loadData
+from utils.io import loadData
 from utils.cropXY import cropXY
 from utils.cropCoregMask import cropCoregMask
 from utils.phase_structure import phase_structure
@@ -80,13 +80,11 @@ writeQP(QP,fname)
 if PLOT_FLAG:
     figID = os.path.basename(fname[0])
     plotStack(QP, figID)
-    #np.save("data/QP.npy", QP)
-
-
 
 
 #%% mat2py comparisons (mat files saved externally)
 
+#np.save("data/QP.npy", QP)
 #from matnpy_compare import compare
 #py, mat, delta = compare("QP", "QP", True, False)
 #py, mat, delta = compare("mask3D", "mask", True, False)

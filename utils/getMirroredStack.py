@@ -70,10 +70,8 @@ def getMirroredStack(stack=None,s=None,*args,**kwargs):
     # mirror x dim
     if s.proc_mirrorX:
         t=copy(temp)
-        t = np.append(t,temp[::-1,:, :],0)
-        t[int(len(t)/2):,:,:] = t[:int(len(t)/2):-1,:,:]
-    
-        temp=copy(t)
+        t = np.concatenate((t,temp[::-1,:, :]),0) # mirror x
+        temp = np.concatenate((t, t[:,::-1,:]),1)  # mirror x-mirrored to y 
         kx=np.multiply(dot(2,np.pi) / (max(x) - min(x)),np.linspace(- Nx / 2,(Nx - 1) / 2,dot(2,Nx)))
     else:
         if np.mod(Nz,2):

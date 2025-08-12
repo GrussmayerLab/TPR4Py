@@ -44,7 +44,7 @@ class phase_structure:
         self.optics_n = 1.406          # refractive index
         self.optics_wv = 0.58          # Central wavelength in vacuum/ WAS optics.lambda (python internal command)
         self.optics_dlambda = 0.075   # Spectrum bandwidth
-        self.optics_alpha = 3.15      # Experimental coeficient for QP "normalisation"
+        self.optics_alpha = 4.21      # Experimental coefficient for QP "normalisation" optimised for TUD/MCL setup
         self.optics_kzT = 0.01        # Axial cutoff frequency.
                                         # if set to [], use the theoretical value
     ### Practical note : Inacurate values of illumination NA and source spectrum
@@ -57,7 +57,19 @@ class phase_structure:
         self.proc_mirrorZ = True             # mirror the input stack along Z
         self.proc_applyFourierMask = True    # apply the denoising Fourier mask
                                     
-                                
+                           
+    def summarise(self):
+        print("Phase structure: \n_________________")
+        print(f"s.optics_dx = {self.optics_dx} \t \t s.optics_wv = {self.optics_wv}")
+        print(f"s.optics_dz = {self.optics_dz} \t \t s.optics_dlambda = {self.optics_dlambda}")
+        print(f"s.optics_NA = {self.optics_NA} \t \t s.optics_alpha = {self.optics_alpha}")
+        print(f"s.optics_NA_ill = {self.optics_NA_ill} \t \t s.optics_kzT = {self.optics_kzT}")
+        print(f"s.optics_n = {self.optics_n}")
+        print("Processing paramters: \n_________________")
+        print(f"s.proc_mirrorX = {self.proc_mirrorX} \t \t s.proc_mirrorZ = {self.proc_mirrorZ}")
+        print(f"s.proc_applyFourierMask = {self.proc_applyFourierMask}")
+        
+        
 
 
 

@@ -72,23 +72,17 @@ def getQP(stack=None,struct=None,mask=None):
                 ((Kx - dot(k0max,sin(th_ill))) ** 2 + (Kz - dot(k0max,cos(th_ill))) ** 2) <= k0max ** 2, \
                     ((Kx + dot(k0min,sin(th_ill))) ** 2 + (Kz - k0min) ** 2) >= k0min ** 2), Kx >= 0), \
                     Kz < dot(k0max,(1 - cos(th))))            
-            print("getQP, applyFouriershift")
             maskCTF = logical_or(maskCTF,maskCTF[:,::-1])
             mask2D = np.asanyarray(logical_and(mask2D,maskCTF), dtype=int)
-            print("getQP, applyFouriershift finished")
         # since we assume a circular symetric CTF, we expand the 2Dmask in 3D
-        print("Mapping mask to 3D..")
-        t = time.time() # remove when done 
         mask=map3D(mask2D)
-        elapsed = time.time() - t
         #np.save("data\mask3D.npy", mask)
-        print("Mapping mask finished, time needed: %s" % (elapsed))
 
     # Cross-Spectral Density calculation
-    print("Shifting FFT..")
+    #print("Shifting FFT..")
     Ik=fft.fftshift(fft.fftn(fft.fftshift(stackM)))
     Gamma=np.multiply(Ik,mask)          # cross-spectral density
-    print("Inverse FFT..")
+    #print("Inverse FFT..")
     csd=fft.ifftshift(fft.ifftn(fft.ifftshift(Gamma)))
     csd = csd[:stack.shape[0], :stack.shape[1], :stack.shape[2]]   # remove the mirrored input    
     QP = angle(csd + np.mean(np.ravel(stack)) / struct.optics_alpha)
