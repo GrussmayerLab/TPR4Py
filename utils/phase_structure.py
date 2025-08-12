@@ -37,11 +37,11 @@
 class phase_structure: 
     
     def __init__(self):
-        self.optics_dx = 0.11
-        self.optics_dz = 0.2          # axial sampling [um]
-        self.optics_NA = 1.2          # Numerical Aperture detection
-        self.optics_NA_ill = 0.26     # Numerical Aperture illumination
-        self.optics_n = 1.33          # refractive index
+        self.optics_dx = 0.108
+        self.optics_dz = 0.1          # axial sampling [um]
+        self.optics_NA = 1.3          # Numerical Aperture detection
+        self.optics_NA_ill = 0.55     # Numerical Aperture illumination
+        self.optics_n = 1.406          # refractive index
         self.optics_wv = 0.58          # Central wavelength in vacuum/ WAS optics.lambda (python internal command)
         self.optics_dlambda = 0.075   # Spectrum bandwidth
         self.optics_alpha = 3.15      # Experimental coeficient for QP "normalisation"

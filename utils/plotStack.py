@@ -38,9 +38,18 @@ Outputs:
 """
 
 import napari
+from napari.settings import get_settings
+
+# if ipy_interactive is false, each viewer will wait before continuing
+# otherwise you'll immediately get 4 viewers.
+
+settings = get_settings()
+settings.application.ipy_interactive = False
 
 def plotStack(data=None, figID=None, *args,**kwargs):
-    napari.view_image(data, axis_labels=["x","y","z"], name=str("QP_" + figID)) 
+   napari.view_image(data, axis_labels=["x","y","z"], name=str("QP_" + figID)) 
+   napari.run()
+
 
     
     

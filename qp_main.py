@@ -41,12 +41,13 @@ from utils.cropCoregMask import cropCoregMask
 from utils.phase_structure import phase_structure
 from utils.getQP import getQP
 from utils.plotStack import plotStack
+from utils.writeQP import writeQP
 #%% 3D image stack loading
-stack,fname = loadData() 
+stack, fname = loadData() 
 PLOT_FLAG = True
 #stack,pname,fname = loadData
 Nx,Ny,Nz = stack.shape
-
+stack = stack.transpose(1,2,0)
 #%%3D stack preprocessing
 if Nz == 8:                                 # i.e. multiplane data : remove the coregistration mask
     stack=cropCoregMask(stack)
@@ -68,14 +69,21 @@ if stack.shape[0] == 8:              # i.e. MultiPlane data
     s.optics_dz = 0.35               # [um]
 else:
     s.optics_dz = 0.2               # typical sampling for fixed cells
+
+s.optics_dz = 0.1               # typical sampling for fixed cells
+print(f"final shape{stack.shape}")
 #%% compute the phase
 QP,mask = getQP(stack,s)
 
+writeQP(QP,fname)
 #%% napari 3D stack plotting
 if PLOT_FLAG:
     figID = os.path.basename(fname[0])
     plotStack(QP, figID)
     #np.save("data/QP.npy", QP)
+
+
+
 
 #%% mat2py comparisons (mat files saved externally)
 
