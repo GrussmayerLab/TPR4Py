@@ -2,7 +2,42 @@ import numpy as np
 from copy import copy
 from tqdm import tqdm 
 import math
+import os
+import json
+from tkinter import filedialog
+from tkinter import *
 
+
+def load_calibration(path=''):
+    if not os.path.exists(os.path.join(path, 'cal.json')):
+        # ask for user input for calibraiton
+        root = Tk()
+        root.withdraw()
+        filepath = filedialog.askopenfile(title='Select calibration data file', filetypes =[('Calibration file', '*.json')])
+        fopen = filepath.name
+    else:
+        fopen = os.path.join(path, 'cal.json')
+
+    f = open(fopen)
+    cal = json.load(f, object_hook=jsonKeys2int) 
+    f.close()
+
+    return cal
+
+
+
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray) or isinstance(obj, np.generic):
+            return obj.tolist()
+        return super().default(obj)
+    
+
+
+def jsonKeys2int(x):
+    if isinstance(x, dict):
+        return {(int(k) if k.isnumeric() else k):v for k,v in x.items()}
+    return x
 
 
 class TopographicPhaseRetrieval: 
