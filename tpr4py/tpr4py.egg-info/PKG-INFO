@@ -1,3 +1,37 @@
+Metadata-Version: 2.4
+Name: tpr4py
+Version: 0.1.0
+Summary: Quantitative phase retrieval from bright‑field image stacks
+Author-email: Moritz Engelhardt <m.l.k.engelahrdt@tudelft.nl>
+License-Expression: GPL-3.0-or-later
+Keywords: phase‑imaging,napari,microscopy,image‑processing
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering :: Image Processing
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy<2.0,>=1.22
+Requires-Dist: scikit-image>=0.19.2
+Requires-Dist: napari[all]>=0.4.15
+Requires-Dist: tqdm>=4.64.0
+Requires-Dist: pyyaml>=5.4.0
+Requires-Dist: numba>=0.56.0; platform_system != "Windows"
+Requires-Dist: magicgui>=0.7.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: ruff>=0.0.260; extra == "dev"
+Requires-Dist: black>=23.0; extra == "dev"
+Requires-Dist: mypy>=1.0; extra == "dev"
+Requires-Dist: pre-commit>=3.0; extra == "dev"
+Provides-Extra: napari
+Requires-Dist: napari>=0.4.15; extra == "napari"
+Requires-Dist: napari-plugin-engine>=0.2.0; extra == "napari"
+Requires-Dist: magicgui>=0.7.0; extra == "napari"
+Dynamic: license-file
+
 # TomographicPhaseRetrieval for Python - TPR4Py
 
 TPR4Py is a tool to recover quantitative phase differences from a 3D stack of bright field images.
@@ -9,13 +43,13 @@ https://doi.org/10.1038/s41566-018-0109-4
 
 
 
-# 1 Clone & install editable
+# 1️⃣ Clone & install editable
 ```sh
 git clone https://github.com/GrussmayerLab/TPR4Py.git
 cd TPR4Py
 pip install -e .[dev,napari]   # dev extras include napari, magicgui, numba, pytest
 ```
-# 2 Run from the command line\
+# 2️⃣ Run from the command line\
 ```sh
 tpr4py path/to/stack.tif -o results/
 ```
@@ -23,37 +57,8 @@ tpr4py path/to/stack.tif -o results/
 ```sh
  tpr4py tests/data/fiji_test.tif -o tests/data/
 ```
-
-## run with custom processing file
-```sh
-tpr4py tests/data/fiji_test.tif -o tests/data/ --phase-config settings/default.yaml
-```
-
-# 3 run from script
-```python
- 
-import pathlib
-from tpr4py.core.utils.io import load_data, write_data
-from tpr4py.core import run_phase_retrieval
-from tpr4py.core.utils.processing_loader import build_phase_structure
-
-input_path = r'path/to/file.tif'
-base_name = pathlib.Path(filename).stem
-stack, filename = load_data(
-            input_path,
-            use_bioformats=True, # if available with javaVM, oterhwise fallsback to tifffile
-            series=series, # in case of bioformats series specification
-            z_slice=z_slice, # in case of 4d data
-        )
-s = build_phase_structure(path_to_config, config_class)
-s.optics_NA = 1.3 # edit parameters if necessary 
-qp = run_phase_retrieval.run_phase_retrieval(stack, s)
-write_data(qp, out_dir, base_name) # will append a QP_ before the original filename
-```
-# 4 Open Napari and launch the plug‑in (To be fixed)
-```sh
+# 3️⃣ Open Napari and launch the plug‑in
 napari
-```
 → Plugins → tpr_viewer → select your stack → QP appears
 
 

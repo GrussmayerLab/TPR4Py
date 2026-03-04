@@ -38,28 +38,30 @@ A detailled description of the theory supporting this program can be found in :
  	You should have received a copy of the GNU General Public License
  	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """    
-from numpy import ravel, multiply
+from __future__ import annotations
+import numpy as np
+from typing import Union
 
-def linmap(val=None,valMin=None,valMax=None,mapMin=None,mapMax=None,*args):
-    nargin = linmap.nargin
+def linmap(
+    val: np.ndarray,
+    val_min: float | None = None,
+    val_max: float | None = None,
+    map_min: float = 0.0,
+    map_max: float = 1.0,
+) -> np.ndarray:
+    """Scale *val* linearly from [val_min, val_max] → [map_min, map_max].
 
-    if nargin == 3:
-        mapMax=valMax
-        mapMin=valMin
-        valMin=min(ravel(val))
-        valMax=max(ravel(val))
-    
-    # convert the input value between 0 and 1
-    tempVal=(val - valMin) / (valMax - valMin)
-    # clamp the value between 0 and 1
-    map0=tempVal < 0
-    map1=tempVal > 1
-    tempVal[map0]=0
-    tempVal[map1]=1
+    If ``val_min``/``val_max`` are omitted they are inferred from ``val``.
+    Values outside the source range are clipped to the target range.
+    """
+    if val_min is None:
+        val_min = np.nanmin(val)
+    if val_max is None:
+        val_max = np.nanmax(val)
 
-    # rescale and return
-    rsc=multiply(tempVal,(mapMax - mapMin)) + mapMin
-    return rsc
-    
-if __name__ == '__main__':
-    pass
+    # Normalise → [0, 1]
+    norm = (val - val_min) / (val_max - val_min)
+    norm = np.clip(norm, 0, 1)
+
+    # Rescale
+    return norm * (map_max - map_min) + map_min

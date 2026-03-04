@@ -1,0 +1,2 @@
+[console_scripts]
+tpr4py = tpr4py.cli.main:main

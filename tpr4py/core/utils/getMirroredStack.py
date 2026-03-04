@@ -41,7 +41,7 @@ A detailled description of the theory supporting this program can be found in :
  
 import numpy as np
 from numpy import dot
-from utils.cropXY import cropXY
+from tpr4py.core.utils.cropXY import cropXY
 from copy import copy   
     
 def getMirroredStack(stack=None,s=None,*args,**kwargs):
@@ -50,6 +50,7 @@ def getMirroredStack(stack=None,s=None,*args,**kwargs):
     
     if Nx != Ny:                     # verify that the stack is square
         stack=cropXY(stack)          # if not, crop it
+        Nx,Ny,Nz=stack.shape
     
     # compute real space
     x=np.linspace(dot(- Nx,s.optics_dx) / 2,dot(Nx,s.optics_dx) / 2,Nx)

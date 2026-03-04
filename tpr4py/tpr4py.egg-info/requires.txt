@@ -1,0 +1,21 @@
+numpy<2.0,>=1.22
+scikit-image>=0.19.2
+napari[all]>=0.4.15
+tqdm>=4.64.0
+pyyaml>=5.4.0
+magicgui>=0.7.0
+
+[:platform_system != "Windows"]
+numba>=0.56.0
+
+[dev]
+pytest>=7.0
+ruff>=0.0.260
+black>=23.0
+mypy>=1.0
+pre-commit>=3.0
+
+[napari]
+napari>=0.4.15
+napari-plugin-engine>=0.2.0
+magicgui>=0.7.0

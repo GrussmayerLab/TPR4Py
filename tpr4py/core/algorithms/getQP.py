@@ -41,9 +41,8 @@ import numpy as np
 from numpy import dot, pi, sin, cos, angle, logical_and, logical_or
 import numpy.fft as fft
 import math
-import time
-from utils.getMirroredStack import getMirroredStack
-from utils.map3D import map3D
+from tpr4py.core.utils.getMirroredStack import getMirroredStack
+from tpr4py.core.utils.map3D import map3D
 
 
 def getQP(stack=None,struct=None,mask=None):
@@ -76,19 +75,16 @@ def getQP(stack=None,struct=None,mask=None):
             mask2D = np.asanyarray(logical_and(mask2D,maskCTF), dtype=int)
         # since we assume a circular symetric CTF, we expand the 2Dmask in 3D
         mask=map3D(mask2D)
-        #np.save("data\mask3D.npy", mask)
+        mask = np.transpose(mask, (2, 1, 0)) # transpose to match the stack dimensions
+
 
     # Cross-Spectral Density calculation
-    #print("Shifting FFT..")
     Ik=fft.fftshift(fft.fftn(fft.fftshift(stackM)))
     Gamma=np.multiply(Ik,mask)          # cross-spectral density
-    #print("Inverse FFT..")
     csd=fft.ifftshift(fft.ifftn(fft.ifftshift(Gamma)))
-    csd = csd[:stack.shape[0], :stack.shape[1], :stack.shape[2]]   # remove the mirrored input    
+    csd = csd[:stackM.shape[0], :stackM.shape[1], :stackM.shape[2]]   # remove the mirrored input    
     QP = angle(csd + np.mean(np.ravel(stack)) / struct.optics_alpha)
 
     return QP,mask
-    
-if __name__ == '__main__':
-    pass
+
     

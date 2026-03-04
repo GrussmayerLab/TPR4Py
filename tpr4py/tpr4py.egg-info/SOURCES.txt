@@ -1,0 +1,12 @@
+LICENSE
+README.md
+pyproject.toml
+tests/test_io.py
+tests/test_processing.py
+tests/test_qp.py
+tpr4py/tpr4py.egg-info/PKG-INFO
+tpr4py/tpr4py.egg-info/SOURCES.txt
+tpr4py/tpr4py.egg-info/dependency_links.txt
+tpr4py/tpr4py.egg-info/entry_points.txt
+tpr4py/tpr4py.egg-info/requires.txt
+tpr4py/tpr4py.egg-info/top_level.txt

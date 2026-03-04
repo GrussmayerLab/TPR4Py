@@ -1,0 +1,11 @@
+name: tpr4py_napari
+display_name: TPR4Py napari viewer plugin
+contributions:
+  commands:
+    - id: napari_tpr.run_viewer
+      title: Simple viewer
+      python_name: viewer:tpr_viewer
+  widgets:
+    - command: napari_tpr.run_viewer  # same as command.id
+      display_name: Simple viewer widget
+      autogenerate: true

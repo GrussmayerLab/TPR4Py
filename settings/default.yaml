@@ -1,0 +1,20 @@
+optics_dx : 0.108             # lateral sampling [um]
+optics_dz : 0.8               # axial sampling [um]
+optics_NA : 1.3           # Numerical Aperture detection
+optics_NA_ill : 0.55      # Numerical Aperture illumination
+optics_n : 1.406          # refractive index
+optics_wv : 0.58          # Central wavelength in vacuum/ WAS optics.lambda (python internal command)
+optics_dlambda : 0.075    # Spectrum bandwidth
+optics_alpha : 4.21       # Experimental coefficient for QP "normalisation" optimised for TUD/MCL setup
+optics_kzT : 0.01         # Axial cutoff frequency.
+                          # if set to [], use the theoretical value
+
+### Practical note : Inacurate values of illumination NA and source spectrum
+# in conjunction with coarse z-sampling may lead to an overestimation of
+# the axial cutoff if the theoretical value is used.
+# Best practice is to use a small value > 0
+
+# processing parameters
+proc_mirrorX : 0            # mirror the input stack along X 
+proc_mirrorZ : 1             # mirror the input stack along Z
+proc_applyFourierMask : 1    # apply the denoising Fourier mask

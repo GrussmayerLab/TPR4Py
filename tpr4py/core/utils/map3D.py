@@ -35,7 +35,24 @@ A detailled description of the theory supporting this program can be found in :
 """
 import numpy as np
 
-def map3D(in_=None):
+def map3D(mask2d: np.ndarray) -> np.ndarray:
+    """Expand a 2‑D radial CTF mask to a 3‑D isotropic mask."""
+    nz, nx = mask2d.shape
+    r = np.linspace(-1, 1, nx)
+    x, y = np.meshgrid(r, r, indexing="ij")
+    radius = np.sqrt(x**2 + y**2)
+    radius = np.clip(radius, -1, 1)
+
+    # Convert radius → nearest integer index in the 2‑D mask
+    idx = np.round(((radius - r.min()) / (r.max() - r.min())) * (nx - 2)).astype(int)
+    idx = np.clip(idx, 0, nx - 1)
+
+    # Broadcast across the z‑dimension
+    out = mask2d[np.arange(nz)[:, None, None], idx]
+    return out.astype(float)
+    
+
+def map3D_old(in_: np.ndarray) -> np.ndarray:
     Nz, Nx =in_.shape
     temp_x = np.linspace(-1,1,Nx)
     temp_z = np.linspace(-1,1,Nz)
@@ -62,13 +79,8 @@ def map3D(in_=None):
         tempc = np.isin(mapc, np.add(1,np.where(CTF1D == 1)[0]))
         
         # local linear interpolation 
-        temp = p*tempf + (1-p)*tempc;
+        temp = p*tempf + (1-p)*tempc
 
         out[:,:,kk]=temp
 
     return out
-    
-if __name__ == '__main__':
-    pass
-    
-

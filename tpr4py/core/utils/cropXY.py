@@ -37,32 +37,12 @@ A detailled description of the theory supporting this program can be found in :
 """
 import numpy as np
 from copy import copy 
-    
-def cropXY_old(input_=None,N=None):
-    print("Cropping..")
-    Nx,Ny,_=input_.shape
-    if N is None:
-        N=max(Nx,Ny) + 1
-        
-    if N > max(Nx,Ny): # invalid/ missing input N => square the stack
-        if Nx != Ny:
-            N=min(Nx,Ny)
-            ox=int(np.floor((Nx - N) / 2))
-            oy=int(np.floor((Ny - N) / 2))
-            out=input_[ox:ox+N-1,oy:oy+N-1,:]      # beware matlab indexing
-        else:
-            out=copy(input_)
-    else:
-        ox=int(np.floor((Nx - N) / 2))
-        oy=int(np.floor((Ny - N) / 2))
-        out=input_[ox:ox+N, oy:oy+N,:]
-    print("Cropping finished")
-    return out
-    
-
+import logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)   # configurable by user    
     
 def cropXY(input_=None,N=None):
-    print("Cropping..")
+    log.info("Cropping..")
     
     size = input_.shape
     if len(size) == 3:
@@ -93,10 +73,7 @@ def cropXY(input_=None,N=None):
             out=input_[ox:ox+N, oy:oy+N,:]
         else: 
             out=input_[ox:ox+N, oy:oy+N,:, :]
-    print("Cropping finished")
+    log.info("Cropping finished")
     return out
-    
-#if __name__ == '__main__':
-#    pass
-    
+
 
